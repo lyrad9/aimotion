@@ -1,0 +1,408 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "clap/manifest.schema.json",
+  "title": "Clap manifest",
+  "description": "Written by a skill into <project>/review/manifest.json. Paths are relative to the review/ folder.",
+  "type": "object",
+  "required": [
+    "schema",
+    "project",
+    "round",
+    "stage",
+    "canvas"
+  ],
+  "properties": {
+    "schema": {
+      "const": 1
+    },
+    "project": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string"
+    },
+    "round": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "stage": {
+      "enum": [
+        "storyboard",
+        "final"
+      ]
+    },
+    "canvas": {
+      "type": "object",
+      "required": [
+        "w",
+        "h"
+      ],
+      "properties": {
+        "w": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "h": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "fps": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "duration": {
+      "type": "number",
+      "minimum": 0
+    },
+    "media": {
+      "type": "object",
+      "properties": {
+        "video": {
+          "type": "string"
+        },
+        "audio": {
+          "type": "string"
+        }
+      }
+    },
+    "chapters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "start",
+          "end"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "start": {
+            "type": "number"
+          },
+          "end": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "panels": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/panel"
+      }
+    },
+    "tracks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/track"
+      }
+    },
+    "layers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/layer"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "stage": {
+            "const": "storyboard"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "panels"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "stage": {
+            "const": "final"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "media",
+          "tracks"
+        ],
+        "properties": {
+          "media": {
+            "required": [
+              "video"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "source": {
+      "type": "object",
+      "description": "Where this thing is defined, so the skill knows what to edit.",
+      "required": [
+        "file"
+      ],
+      "properties": {
+        "file": {
+          "type": "string"
+        },
+        "pointer": {
+          "type": "string",
+          "description": "RFC 6901 JSON pointer inside file"
+        }
+      }
+    },
+    "rect": {
+      "type": "array",
+      "description": "[x, y, w, h] in canvas pixels",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "panel": {
+      "type": "object",
+      "required": [
+        "id",
+        "title"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "chapter": {
+          "type": "string"
+        },
+        "start": {
+          "type": "number"
+        },
+        "end": {
+          "type": "number"
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "src"
+                ],
+                "properties": {
+                  "src": {
+                    "type": "string"
+                  },
+                  "label": {
+                    "type": "string"
+                  },
+                  "t": {
+                    "type": "number"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "excerpt": {
+          "type": "string"
+        },
+        "data": {},
+        "source": {
+          "$ref": "#/$defs/source"
+        },
+        "clip": {
+          "type": "object",
+          "required": [
+            "start",
+            "end"
+          ],
+          "description": "a passage of a preview video to play in the panel (an animatic); src defaults to media.video",
+          "properties": {
+            "src": {
+              "type": "string"
+            },
+            "start": {
+              "type": "number"
+            },
+            "end": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    "item": {
+      "type": "object",
+      "required": [
+        "id",
+        "start"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "start": {
+          "type": "number"
+        },
+        "end": {
+          "type": "number"
+        },
+        "bbox": {
+          "$ref": "#/$defs/rect"
+        },
+        "rid": {
+          "type": "string",
+          "description": "data-rid of the matching element in an html layer"
+        },
+        "data": {},
+        "source": {
+          "$ref": "#/$defs/source"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/item"
+          }
+        }
+      }
+    },
+    "track": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "segment",
+            "component",
+            "word",
+            "marker",
+            "audio-cue",
+            "audio",
+            "region"
+          ]
+        },
+        "color": {
+          "type": "string"
+        },
+        "src": {
+          "type": "string",
+          "description": "audio file for kind=audio (waveform)"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/item"
+          }
+        }
+      }
+    },
+    "layer": {
+      "type": "object",
+      "required": [
+        "kind",
+        "src",
+        "rect"
+      ],
+      "properties": {
+        "kind": {
+          "const": "html"
+        },
+        "src": {
+          "type": "string"
+        },
+        "timeline": {
+          "type": "string",
+          "description": "key in window.__timelines (GSAP)",
+          "default": "main"
+        },
+        "offset": {
+          "type": "number",
+          "description": "layer time = video time - offset",
+          "default": 0
+        },
+        "size": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2,
+          "description": "page viewport [w,h]; defaults to rect size"
+        },
+        "rect": {
+          "$ref": "#/$defs/rect"
+        },
+        "track": {
+          "type": "string",
+          "description": "track id whose items match data-rid values"
+        },
+        "crop": {
+          "$ref": "#/$defs/rect",
+          "description": "page region [x,y,w,h] (page pixels) shown inside rect; defaults to the whole page"
+        },
+        "start": {
+          "type": "number",
+          "minimum": 0,
+          "description": "With end: the layer only exists in [start, end] (one page per graphic). The app loads it only near the playhead."
+        },
+        "end": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

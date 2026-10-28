@@ -1,0 +1,202 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "clap/review.schema.json",
+  "title": "Clap review state",
+  "description": "Written by the app into <project>/review/review.json. The skill reads it and writes back comment.status/resolution.",
+  "type": "object",
+  "required": [
+    "schema",
+    "round",
+    "stage",
+    "status",
+    "panels",
+    "comments"
+  ],
+  "properties": {
+    "schema": {
+      "const": 1
+    },
+    "project": {
+      "type": "string"
+    },
+    "round": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "stage": {
+      "enum": [
+        "storyboard",
+        "final"
+      ]
+    },
+    "status": {
+      "enum": [
+        "in_review",
+        "changes_requested",
+        "approved"
+      ]
+    },
+    "updated": {
+      "type": "string"
+    },
+    "panels": {
+      "type": "object",
+      "additionalProperties": {
+        "enum": [
+          "pending",
+          "approved",
+          "changes"
+        ]
+      }
+    },
+    "comments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/comment"
+      }
+    },
+    "approved_round": {
+      "type": "integer",
+      "description": "final stage: the round the user approved as a whole"
+    },
+    "stages": {
+      "type": "object",
+      "description": "per stage: the round last reconciled and its status",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "round",
+          "status"
+        ],
+        "properties": {
+          "round": {
+            "type": "integer"
+          },
+          "status": {
+            "enum": [
+              "in_review",
+              "changes_requested",
+              "approved"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "comment": {
+      "type": "object",
+      "required": [
+        "id",
+        "round",
+        "stage",
+        "text",
+        "status",
+        "target"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "round": {
+          "type": "integer"
+        },
+        "stage": {
+          "enum": [
+            "storyboard",
+            "final"
+          ]
+        },
+        "created": {
+          "type": "string"
+        },
+        "target": {
+          "type": "object",
+          "properties": {
+            "panel": {
+              "type": "string"
+            },
+            "image": {
+              "type": "integer"
+            },
+            "track": {
+              "type": "string"
+            },
+            "item": {
+              "type": "string"
+            },
+            "sub": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "source": {
+              "type": "object"
+            }
+          }
+        },
+        "t": {
+          "type": "number"
+        },
+        "frame": {
+          "type": "integer"
+        },
+        "range": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "point": {
+          "type": "object",
+          "required": [
+            "x",
+            "y"
+          ],
+          "properties": {
+            "x": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "y": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          }
+        },
+        "shot": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "open",
+            "resolved",
+            "wontfix"
+          ]
+        },
+        "resolution": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "recheck": {
+          "type": "boolean"
+        },
+        "checked": {
+          "type": "boolean",
+          "description": "the user confirmed a resolved comment; never flagged recheck again"
+        }
+      }
+    }
+  }
+}
