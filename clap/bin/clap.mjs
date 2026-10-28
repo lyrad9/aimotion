@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Clap CLI (also installed as `aisance-video-editing`). Skills call this by name; it never needs to know what a "reel" is.
+// Clap CLI. Skills call this by name; it never needs to know what a "reel" is.
 import fs from "node:fs";
 import path from "node:path";
 import { spawn } from "node:child_process";
@@ -16,7 +16,6 @@ Commands
   status <dir>     Print the gate's review status as JSON: {stage, round, status, open, panels, stages}
   comments <dir>   Print the open comments as text (--all to include resolved ones)
 
-\`aisance-video-editing\` is the same command under its old name.
 Contract: README.md in the Clap folder.`;
 
 const [cmd, dir, ...rest] = process.argv.slice(2);

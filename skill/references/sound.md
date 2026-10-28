@@ -1,6 +1,6 @@
 # Son : musique et bruitages
 
-Activé par défaut : `render.mjs` mixe le son automatiquement dès que la pièce déclare `music` ou des `sfx` (`--mute` pour s'en passer). Pour changer seulement le son, sans re-rendre l'image : `node ~/.claude/skills/aisance-motion-design/scripts/sound.mjs piece.html out.silent.mp4 out.mp4 [--stems dir]` (environ 2 s).
+Activé par défaut : `render.mjs` mixe le son automatiquement dès que la pièce déclare `music` ou des `sfx` (`--mute` pour s'en passer). Pour changer seulement le son, sans re-rendre l'image : `node ~/.claude/skills/motion-kit/scripts/sound.mjs piece.html out.silent.mp4 out.mp4 [--stems dir]` (environ 2 s).
 - **Bruitages = des temps, jamais des secondes.** Dans chaque scène, `sfx: [[temps, 'nom', vol, {align:'end'}?]]`, avec les **mêmes nombres** que dans `draw` (un mot qui arrive à `b * 2` → `[2, 'swish', 0.5]`). Le son ne peut donc pas se décaler de l'image.
 - **Banque synthétisée** (sans licence, déterministe ; `node sound.mjs --bank dir` pour l'écouter). Usage :
 
@@ -23,7 +23,7 @@ Activé par défaut : `render.mjs` mixe le son automatiquement dès que la pièc
 - **Piste fournie dont le BPM est lent (ex. 80)** : faire tourner la pièce au **double** (160 BPM : 1 temps d'animation = une croche, 1 mesure = 1,5 s), et choisir `start` pour que les gros kicks du morceau tombent sur les coupes importantes (le drop sur la scène forte, un kick sur le logo). Trouver les kicks : enveloppe passe-bas 150 Hz, pics espacés d'une mesure. Exemple : le commentaire `music` de `templates/intro-jingle.html`.
 - **Bruitages par-dessus une vraie musique** : 1 à 2 par scène au plus, volumes 0,15 à 0,3, seulement sur ce que la musique ne marque pas déjà. Un son à chaque impact devient vite répétitif et trop fort : la musique porte déjà le rythme.
 - **Piste fournie par l'utilisateur** (licenciée uniquement) : `music: { file: 'assets/track.mp3', start: 12.3, vol: 0.8 }`. Le BPM de la pièce doit être celui de la piste, et `start` placé sur un temps 1 de la piste. Ne jamais télécharger de musique soi-même.
-- **Dosage** (repris d'aisance-reel) :
+- **Dosage** :
   - Pas de son sur chaque élément : un son par **action lisible**.
   - `whoosh` seulement aux vrais changements de scène.
   - La musique reste sous les bruitages (`vol` 0,4 à 0,5).

@@ -48,7 +48,7 @@ function lowpass(b, cutoff) { let y = 0; for (let i = 0; i < b.length; i++) { co
 function highpass(b, cutoff) { const lp = lowpass(Float32Array.from(b), cutoff); for (let i = 0; i < b.length; i++) b[i] -= lp[i]; return b; }
 
 // ---------- sound-effect bank ----------
-// Five sounds follow the aisance-reel bank (click, pop, tick, whoosh, ding); the rest are motion-specific.
+// Five sounds form the base bank (click, pop, tick, whoosh, ding); the rest are motion-specific.
 const BANK = {
   click() { const r = rng(1), b = buf(0.025); let p = 0; for (let i = 0; i < b.length; i++) { const t = i / SR, n = r(); b[i] = (0.6 * (n - p) + 0.4 * Math.sin(TAU * 3200 * t)) * Math.exp(-t / 0.004); p = n; } return normalize(b); },
   pop() { const b = buf(0.09); let ph = 0; for (let i = 0; i < b.length; i++) { const t = i / SR; ph += (TAU * (300 + 600 * Math.exp(-t / 0.02))) / SR; b[i] = Math.sin(ph) * Math.min(1, t / 0.002) * Math.exp(-t / 0.025); } return normalize(b); },

@@ -2,7 +2,7 @@
 
 Quand la vidéo parle d'un site, d'une chaîne, d'un produit ou d'un profil, **capturer le vrai contenu soi-même**, sans demander de captures à l'utilisateur :
 ```
-node ~/.claude/skills/aisance-motion-design/scripts/capture.mjs <url> <projet>/assets --name <clé> \
+node ~/.claude/skills/motion-kit/scripts/capture.mjs <url> <projet>/assets --name <clé> \
   --el avatar="<css>" --box header="<css>" --list thumb="<css>" --max 12 \
   --text subs="<css>" --texts title="<css>" --attrs href="<css>@href" --img logo="<css img>"
 ```
@@ -24,7 +24,7 @@ node ~/.claude/skills/aisance-motion-design/scripts/capture.mjs <url> <projet>/a
 
 ## Visuels d'origine plutôt que recadrages
 Une vignette découpée dans une capture est un recadrage de l'interface (format imposé, bandeau de titre, basse résolution). Pour montrer les visuels eux-mêmes (galerie, bibliothèque, historique), récupérer les fichiers d'origine :
-`node ~/.claude/skills/aisance-motion-design/scripts/fetch-images.mjs <url> assets/insp --selector "section button.group img" --limit 8 --storage .session.json`
+`node ~/.claude/skills/motion-kit/scripts/fetch-images.mjs <url> assets/insp --selector "section button.group img" --limit 8 --storage .session.json`
 Derrière `/_next/image?url=…`, le script télécharge la source au format natif. Il écrit `images.json` (fichier, dimensions, texte alternatif). Écarter les images à fond blanc ou transparent quand elles vont dans une pile ou un éventail.
 
 ## Pièges rencontrés

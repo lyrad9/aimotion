@@ -1,4 +1,4 @@
-// Review manifest for Clap, the local review app (command `clap`, formerly `aisance-video-editing`).
+// Review manifest for Clap, the local review app (command `clap`).
 // Writes / updates <piece dir>/review/manifest.json (stage "final") from the piece itself:
 // one segment per scene, one marker per bar, one cue per sfx, plus the audio waveform.
 //

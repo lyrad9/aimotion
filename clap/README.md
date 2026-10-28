@@ -1,19 +1,19 @@
 # Clap
 
-A local review app for videos (formerly `aisance-video-editing`). It has two modes:
+A local review app for videos. It has two modes:
 1. **Storyboard**: approve each panel, pin comments on a precise point of a still, or of the panel's passage playing from a draft render of the whole video (an animatic).
 2. **Final**: play the render frame by frame and click any element (a card, one line inside a card, a caption word, a screen window). You can also click any block of the multi-track timeline (cuts, SFX, music) and comment it.
 
 Comments go back to Claude through a file, not through copy-paste.
 
-It is a **tool**, independent of any skill. A skill writes `review/manifest.json` in its project folder, the user reviews, the app writes `review/review.json`, and the skill reads it when the user says "apply the review". The tool knows nothing about reels: everything specific lives in the skill's adapter (for aisance-reel: `scripts/review_manifest.py`).
+It is a **tool**, independent of any skill. A skill writes `review/manifest.json` in its project folder, the user reviews, the app writes `review/review.json`, and the skill reads it when the user says "apply the review". The tool knows nothing about reels: everything specific lives in the skill's adapter.
 
 Works for vertical 9:16 reels and long 16:9 videos. The layout follows `canvas`, the timeline zooms and only draws what is in view, and the waveforms are computed once by ffmpeg on the server and cached.
 
 ## Install
 ```
-git clone https://github.com/JulienSnsnCode/aisance-video-editing && cd aisance-video-editing
-npm ci && npm run build && npm link     # puts `clap` (and the old name `aisance-video-editing`) on the PATH
+cd clap
+npm ci && npm run build && npm link     # puts `clap` on the PATH
 ```
 Requires Node 22+ and ffmpeg (waveforms).
 

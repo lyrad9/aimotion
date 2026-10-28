@@ -4,8 +4,7 @@
   "description": "Clap: a local review tool for videos. Storyboard approval and frame-precise component review, driven by a manifest.json written by any skill.",
   "type": "module",
   "bin": {
-    "clap": "bin/clap.mjs",
-    "aisance-video-editing": "bin/aisance-video-editing.mjs"
+    "clap": "bin/clap.mjs"
   },
   "scripts": {
     "dev": "vite",

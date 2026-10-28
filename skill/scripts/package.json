@@ -1,1 +1,1 @@
-{ "name": "aisance-motion-design-render", "private": true, "type": "module", "dependencies": { "playwright": "*" } }
+{ "name": "motion-kit-render", "private": true, "type": "module", "dependencies": { "playwright": "*" } }
