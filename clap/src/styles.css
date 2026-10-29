@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Clap — la salle de relecture de Motion Kit.
+   Clap — la salle de relecture de AImotion.
    Même monde que la landing : encre chaude, papier, filets fins, un voyant
    d'enregistrement orange, les couleurs de pistes pour le sens, et des
    hachures de coupe autour de l'image. Sombre par défaut (une vidéo se juge
@@ -7,7 +7,7 @@
    ========================================================================== */
 
 :root {
-  /* the Motion Kit palette, identical in both themes */
+  /* the AImotion palette, identical in both themes */
   --blue: #3d6bff;
   --green: #11946a;
   --amber: #d98200;
@@ -52,7 +52,7 @@
   color-scheme: dark;
 }
 
-/* light: the Motion Kit landing, a review room in daylight */
+/* light: the AImotion landing, a review room in daylight */
 :root[data-theme="light"] {
   --bg: #f5f4f0;
   --bar: #ffffff;

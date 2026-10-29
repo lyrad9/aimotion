@@ -1,6 +1,6 @@
 # Son : musique et bruitages
 
-Activé par défaut : `render.mjs` mixe le son automatiquement dès que la pièce déclare `music` ou des `sfx` (`--mute` pour s'en passer). Pour changer seulement le son, sans re-rendre l'image : `node ~/.claude/skills/motion-kit/scripts/sound.mjs piece.html out.silent.mp4 out.mp4 [--stems dir]` (environ 2 s).
+Activé par défaut : `render.mjs` mixe le son automatiquement dès que la pièce déclare `music` ou des `sfx` (`--mute` pour s'en passer). Pour changer seulement le son, sans re-rendre l'image : `node ~/.claude/skills/aimotion/scripts/sound.mjs piece.html out.silent.mp4 out.mp4 [--stems dir]` (environ 2 s).
 - **Bruitages = des temps, jamais des secondes.** Dans chaque scène, `sfx: [[temps, 'nom', vol, {align:'end'}?]]`, avec les **mêmes nombres** que dans `draw` (un mot qui arrive à `b * 2` → `[2, 'swish', 0.5]`). Le son ne peut donc pas se décaler de l'image.
 - **Banque synthétisée** (sans licence, déterministe ; `node sound.mjs --bank dir` pour l'écouter). Usage :
 

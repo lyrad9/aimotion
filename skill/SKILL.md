@@ -1,5 +1,5 @@
 ---
-name: motion-kit
+name: aimotion
 description: Use when asked to create motion design, a promo video for a channel/site/product (capturing its real pages, thumbnails, stats), an animated reel, a kinetic typography piece, an animated intro/outro, a logo animation, a looping animated visual or a "video written in code" (HTML canvas → MP4, with synced music and sound effects), or when an animation feels flat, floaty, generic or "not premium" and needs pro motion-design polish.
 ---
 
@@ -47,11 +47,11 @@ Quand l'utilisateur demande de réaliser une vidéo (promo d'un produit, d'une a
 3. Une fonction `draw(ctx, p, lt, env)` par scène. `p` = 0→1 sur la scène, `lt` = secondes locales, `env.beat` / `env.bar` = durées.
 4. Vérifier en ouvrant le HTML (espace, flèches, shift + flèches = un temps).
 5. Rendre. Le script reste dans le dossier du skill et se lance depuis n'importe où :
-   - une seule fois : `cd ~/.claude/skills/motion-kit/scripts && npm i && npx playwright install chromium-headless-shell`
-   - images de contrôle (rapide, un seul lancement) : `node ~/.claude/skills/motion-kit/scripts/render.mjs piece.html - --frames 50,160,300,420 --stills chk`
-   - vérifier une transition : `node ~/.claude/skills/motion-kit/scripts/render.mjs piece.html - --from 220 --to 232 --stills chk --every 3`
-   - rendu complet : `node ~/.claude/skills/motion-kit/scripts/render.mjs piece.html out.mp4 [--stills dir --every 15]`
-   - **pièce longue ou machine lente** : `node ~/.claude/skills/motion-kit/scripts/render-chunks.mjs piece.html renders/out.mp4 [--bars 33-36] [--round N]`. Le rendu se fait en morceaux de 600 images, puis il est assemblé sans réencodage, avec le son et le manifeste.
+   - une seule fois : `cd ~/.claude/skills/aimotion/scripts && npm i && npx playwright install chromium-headless-shell`
+   - images de contrôle (rapide, un seul lancement) : `node ~/.claude/skills/aimotion/scripts/render.mjs piece.html - --frames 50,160,300,420 --stills chk`
+   - vérifier une transition : `node ~/.claude/skills/aimotion/scripts/render.mjs piece.html - --from 220 --to 232 --stills chk --every 3`
+   - rendu complet : `node ~/.claude/skills/aimotion/scripts/render.mjs piece.html out.mp4 [--stills dir --every 15]`
+   - **pièce longue ou machine lente** : `node ~/.claude/skills/aimotion/scripts/render-chunks.mjs piece.html renders/out.mp4 [--bars 33-36] [--round N]`. Le rendu se fait en morceaux de 600 images, puis il est assemblé sans réencodage, avec le son et le manifeste.
      - Relancé sans option, il reprend là où il s'est arrêté : seuls les morceaux absents ou incomplets sont refaits.
      - `--bars a-b` refait seulement les morceaux de la scène retouchée.
      - Si la durée change, tout le découpage est recalculé.
@@ -59,11 +59,11 @@ Quand l'utilisateur demande de réaliser une vidéo (promo d'un produit, d'une a
      - Ne jamais lancer deux rendus en même temps.
    - coût indicatif : environ 2 à 4 min pour 600 à 700 frames avec le flou activé (jusqu'à 25 min sur un portable ancien). Itérer sur des images fixes, ne faire le rendu complet qu'à la fin.
 6. **Regarder les images en taille réelle autour de chaque coupe** (3 ou 4 frames juxtaposées avec ffmpeg `hstack`, ou une planche de 8 frames au plus). Les grandes planches contact induisent en erreur. À vérifier : coupes nettes, rien de rogné, texte lisible, dernière image posée.
-7. **Manifeste de relecture, à chaque vidéo créée ou mise à jour.** Le rendu complet (`render.mjs` sans `--from/--to`) et le mixage (`sound.mjs`) écrivent automatiquement `review/manifest.json` à côté de la pièce. Si la vidéo finale a été assemblée autrement (rendu en morceaux + `ffmpeg concat`, ou `sound.mjs` lancé avec `--no-review`), le lancer à la main : `node ~/.claude/skills/motion-kit/scripts/review.mjs piece.html renders/out.mp4`. Vérifier que la ligne `review: round N … (valide)` s'affiche. Puis proposer d'ouvrir la relecture : `clap open <dossier de la pièce>`. Détails → section « Relecture » plus bas.
+7. **Manifeste de relecture, à chaque vidéo créée ou mise à jour.** Le rendu complet (`render.mjs` sans `--from/--to`) et le mixage (`sound.mjs`) écrivent automatiquement `review/manifest.json` à côté de la pièce. Si la vidéo finale a été assemblée autrement (rendu en morceaux + `ffmpeg concat`, ou `sound.mjs` lancé avec `--no-review`), le lancer à la main : `node ~/.claude/skills/aimotion/scripts/review.mjs piece.html renders/out.mp4`. Vérifier que la ligne `review: round N … (valide)` s'affiche. Puis proposer d'ouvrir la relecture : `clap open <dossier de la pièce>`. Détails → section « Relecture » plus bas.
 
 ## Contenu réel et son (toujours lire la référence avant)
 - **Captures** : quand la vidéo parle d'un site, d'une chaîne ou d'un produit, capturer soi-même le vrai contenu avec `scripts/capture.mjs` (pages, éléments, listes, textes, positions des éléments pour les zooms caméra). → `references/captures.md`. Pour les visuels eux-mêmes (galerie, bibliothèque), récupérer les fichiers d'origine au format natif avec `scripts/fetch-images.mjs` plutôt que de recadrer une capture. Exemple complet : `templates/promo-youtube.html`. Intro / jingle de chaîne (5 mesures, sans HUD, logo sonore, textes dans `BRAND`) : `templates/intro-jingle.html`.
-- **Voix off** : ElevenLabs, transcrite par Scribe, montée par `voix/montage.js` et mixée par `scripts/mix-voix.mjs` (règles aux étapes 6 et 10 du déroulé) : `node ~/.claude/skills/motion-kit/scripts/mix-voix.mjs piece.html renders/out.silent.mp4 renders/out.mp4 [--voix voix.wav] [--marge 5]`. Le fichier `.silent.mp4` est laissé par `render-chunks.mjs`.
+- **Voix off** : ElevenLabs, transcrite par Scribe, montée par `voix/montage.js` et mixée par `scripts/mix-voix.mjs` (règles aux étapes 6 et 10 du déroulé) : `node ~/.claude/skills/aimotion/scripts/mix-voix.mjs piece.html renders/out.silent.mp4 renders/out.mp4 [--voix voix.wav] [--marge 5]`. Le fichier `.silent.mp4` est laissé par `render-chunks.mjs`.
 - **Son** : activé par défaut. Bruitages déclarés par scène en **temps** (`sfx: [[2, 'swish', 0.5]]`, mêmes nombres que l'animation), fond musical synthétisé au BPM de la pièce, ou piste licenciée fournie par l'utilisateur. Mixé et masterisé par `render.mjs`. → `references/sound.md`.
 
 ## Relecture (Clap)

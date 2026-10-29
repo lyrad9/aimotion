@@ -15,7 +15,7 @@ export function App() {
   const [copied, setCopied] = useState(false);
   const [help, setHelp] = useState(false);
 
-  // dark by default (a video reads best on a dark surround); the light theme is the Motion Kit daylight room
+  // dark by default (a video reads best on a dark surround); the light theme is the AImotion daylight room
   const [theme, setTheme] = useState<"dark" | "light">(() => { try { return localStorage.getItem("theme") === "light" ? "light" : "dark"; } catch { return "dark"; } });
   useEffect(() => { document.documentElement.dataset.theme = theme; }, [theme]);
   const flipTheme = () => { const next = theme === "dark" ? "light" : "dark"; setTheme(next); try { localStorage.setItem("theme", next); } catch { /* private window */ } };

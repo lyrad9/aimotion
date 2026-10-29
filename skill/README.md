@@ -1,4 +1,4 @@
-# motion-kit
+# aimotion
 
 **FR** — Skill [Claude Code](https://claude.com/claude-code) pour faire des vidéos de motion design écrites en code (canvas HTML → MP4) : animation calée sur le tempo, flou de mouvement réel, captures automatiques de sites, bruitages et musique synchronisés.
 
@@ -18,8 +18,8 @@
 ## Installation
 Requires Node 18+ and ffmpeg on the PATH.
 ```
-# copier le dossier skill/ du pack dans ~/.claude/skills/motion-kit
-cd ~/.claude/skills/motion-kit/scripts
+# copier le dossier skill/ du pack dans ~/.claude/skills/aimotion
+cd ~/.claude/skills/aimotion/scripts
 npm i
 npx playwright install chromium-headless-shell
 ```
@@ -32,7 +32,7 @@ In Claude Code:
 
 Or by hand:
 ```
-cd ~/.claude/skills/motion-kit
+cd ~/.claude/skills/aimotion
 node scripts/render.mjs templates/intro-jingle.html intro.mp4                                # full render with sound
 node scripts/render.mjs templates/reel.html - --frames 60,300,600 --stills check             # a few still frames
 ```

@@ -1,1 +1,1 @@
-{ "name": "motion-kit-render", "private": true, "type": "module", "dependencies": { "playwright": "*" } }
+{ "name": "aimotion-render", "private": true, "type": "module", "dependencies": { "playwright": "*" } }
