@@ -5,6 +5,22 @@ description: Use when asked to create motion design, a promo video for a channel
 
 # Motion design en code
 
+## Accueil : premier lancement et `/aimotion` seul
+Les instructions de l'utilisateur sont dans ce dossier : `INSTRUCTIONS.md`. Pour toute question sur l'usage du kit (installation, étapes, connecteurs, Clap), les lire avant de répondre, plutôt que d'improviser.
+
+**Premier lancement** (ni `~/.aimotion/accueil-fait`, ni `preferences.md` dans le dossier de travail) :
+1. **Bienvenue** en quatre lignes au plus : ce que fait le kit (tu décris la vidéo, Claude l'écrit en code, la rend en MP4, tu corriges dans Clap), et où sont les instructions (`~/.claude/skills/aimotion/INSTRUCTIONS.md`). Proposer de l'ouvrir (Windows : `start "" "<chemin>"` ; macOS : `open "<chemin>"`).
+2. **Vérifier les prérequis**, sans rien installer : `node --version` (22 ou plus), `ffmpeg -version`, outils de rendu (`~/.claude/skills/aimotion/scripts/node_modules` présent), commande `clap` disponible, connecteur ElevenLabs (l'outil `creative_list_voices` existe), connecteur Figma (facultatif). Répondre par une liste ✓ / ✗ ; pour chaque ✗, dire quoi faire en une phrase, d'après les instructions (`~/.claude/skills/aimotion/INSTRUCTIONS.md`).
+3. **Demander quelle vidéo faire** (question fermée, recommandation en premier) : lancement d'un SaaS, démo de produit, spot publicitaire, ou « je découvre : montre-moi le déroulé ». Pour « je découvre », résumer les étapes du déroulé plus bas en une ligne chacune, puis reposer la question.
+4. Créer `~/.aimotion/accueil-fait` (avec la date) pour ne plus refaire cet accueil.
+
+**Lancements suivants, `/aimotion` sans demande** : un menu court (question fermée, recommandation en premier) :
+- reprendre la vidéo en cours, s'il y en a une dans le dossier de travail (une pièce HTML, `review/manifest.json`), en disant à quelle étape elle en est ;
+- nouvelle vidéo ;
+- ouvrir les instructions (`~/.claude/skills/aimotion/INSTRUCTIONS.md`) ou poser une question.
+
+**`/aimotion` suivi d'une demande** : pas de menu. Au premier lancement seulement, faire la vérification des prérequis en deux lignes, puis passer au cadrage.
+
 ## Principe
 Une pièce de motion « satisfaisante » est **verrouillée sur un tempo** et **calculée image par image**. Chaque image est une fonction pure de `t`, chaque événement tombe sur un temps musical, et tout ce qui bouge vite est flou comme sous un obturateur de caméra. Le reste (palette, motif, transitions) sert ce rythme.
 
