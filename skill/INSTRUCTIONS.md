@@ -104,5 +104,5 @@ Après le rendu, Claude ouvre Clap dans ton navigateur.
 
 ## Une question ?
 
-- Email : [mbakopngako@gmail.com](mailto:mbakopngako@gmail.com)
+- Email : [contact@lyrad.dev](mailto:contact@lyrad.dev)
 - WhatsApp : [wa.me/33756991068](https://wa.me/33756991068)
