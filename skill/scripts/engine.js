@@ -267,7 +267,7 @@
     const env = Object.assign({
       w: 1920, h: 1080, fps: 60, bpm: 128, bars: 8, canvas: '#stage',
       title: ['CLAUDE', 'MOTION REEL'], monoFont: '"JetBrains Mono", ui-monospace, monospace',
-      grain: 0.22, vignette: 0.14, motionBlur: 6, shutter: 0.5, // shutter = fraction of a frame
+      grain: 0.03, vignette: 0.14, motionBlur: 6, shutter: 0.5, // shutter = fraction of a frame
       showHud: true, loop: true,
     }, opts);
     const SPB = 60 / env.bpm;                        // seconds per beat

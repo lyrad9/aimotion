@@ -138,7 +138,7 @@ Chaque ligne doit nommer : l'événement sur le temps 1, les accents sur 2-3-4, 
 | Physique | Squash & stretch selon la vitesse (`blob`), dépassement par ressort, rotation qui se résorbe. |
 | Cascade | `stagger` sur lettres, points, rangées ; ordre spatial (centre → bord, gauche → droite). |
 | Couche process | HUD (mesure, temps, frame, timecode) + outil de design (cadre, poignées, valeurs live). |
-| Finition | Grain animé + léger vignettage sur tout. Plan final épuré, HUD réduit aux coins. |
+| Finition | Grain animé très léger (`grain` à 0,03, 0,04 au plus : à 0,1 le fichier pèse environ 3 fois plus, sans gain visible) + léger vignettage sur tout. Plan final épuré, HUD réduit aux coins. |
 | Pose finale | Tout est arrivé et immobile au moins 1 temps avant la dernière image (rien ne s'écrit encore). |
 | Densité | Alterner scène chargée (1 règle × 1000 éléments) et scène épurée (1 forme). |
 
